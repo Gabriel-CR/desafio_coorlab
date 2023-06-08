@@ -1,44 +1,58 @@
 <template>
   <div class="title">
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand class="ml-2">
-        <img src="../assets/logo.png" alt="Logo da empresa" />
-        <b>{{ appName }}</b>
-      </b-navbar-brand>
-    </b-navbar>
-    <form>
-      <h1>Insira o destino e o peso</h1>
-      <!-- input de destino -->
-      <label for="cidade">Destino</label>
-      <select class="form-select" aria-label="Destino" id="destino">
-        <option selected>Selecione o destino</option>
-      </select>
-      <!-- input de peso -->
-      <label for="peso">Peso</label>
-      <input
-        type="text"
-        class="form-control"
-        id="peso"
-        placeholder="300 kg"
-        aria-label="Peso"
-      />
-      <!-- botao de analisar -->
-      <button type="button" class="btn btn-primary">Analisar</button>
-    </form>
-    <!-- saida dos dados -->
-    <div>
-      <h1>Nenhum dado selecionado</h1>
-    </div>
+    <Navbar>
+      <img src="../assets/logo.png" alt="Logo da empresa" />
+      <b>{{ appName }}</b>
+    </Navbar>
+
+    <MainContainer>
+      <FormContainer>
+        <h1>Insira o destino e o peso</h1>
+
+        <!-- input de destino -->
+        <InputContainer>
+          <label for="cidade">Destino</label>
+          <select>
+            <option selected>Selecione o destino</option>
+          </select>
+        </InputContainer>
+
+        <!-- input de peso -->
+        <InputContainer>
+          <label for="peso">Peso</label>
+          <input placeholder="300 kg" />
+        </InputContainer>
+
+        <!-- botao de analisar -->
+        <button type="button" class="btn btn-primary">Analisar</button>
+      </FormContainer>
+
+      <!-- saida dos dados -->
+      <OutputContainer
+        class="col-6 col-md-8 d-flex align-items-center justify-content-center"
+      >
+        <h1>Nenhum dado selecionado</h1>
+      </OutputContainer>
+    </MainContainer>
   </div>
 </template>
 
 <script>
-import { BNavbar, BNavbarBrand } from "bootstrap-vue";
+import {
+  MainContainer,
+  Navbar,
+  FormContainer,
+  OutputContainer,
+  InputContainer,
+} from "@/components/styles.js";
 
 export default {
   components: {
-    BNavbar,
-    BNavbarBrand,
+    MainContainer,
+    Navbar,
+    FormContainer,
+    OutputContainer,
+    InputContainer,
   },
   data() {
     const appName = "";
