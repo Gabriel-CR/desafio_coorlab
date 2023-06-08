@@ -1,12 +1,15 @@
 # Desafio CoorLab
+
 Olá DEV, pronto para participar do nosso processo seletivo?
 
 ## Requisitos
+
 - Noções de programação web
 - Javascript
 - HTML
 
 ## Desafio
+
 Uma empresa estabelecida em Campinas busca assistência para determinar a opção de transportadora mais adequada, levando em consideração a cidade de destino e o prazo de entrega. A equipe de logística realiza o registro de todas as cotações de frete no sistema de gestão logística da empresa. Por sorte, esse sistema é equipado com uma API REST que disponibiliza de forma estruturada todos os dados coletados das cotações de frete. Tais informações estão formatadas da seguinte maneira:
 
 ```
@@ -26,13 +29,11 @@ $ curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X G
 
 Implemente uma aplicação utilizando Vue.js e JavaScript, com base nos requisitos descritos na história a seguir:
 
-
 **História de Usuário: Análise de Frete**
 
 Como analista de logística,
 Eu desejo saber qual é o preço do frete mais econômico e o preço do frete mais rápido,
 Para tomar decisões mais assertivas ao contratar o serviço de transporte.
-
 
 **Cenário: Exibição dos Melhores Fretes**
 
@@ -43,15 +44,12 @@ E clicar no botão "Analisar",
 Então devo visualizar o nome da transportadora, o custo total e o tempo de entrega do frete mais econômico,
 E devo visualizar o nome da transportadora, o custo total e o tempo de entrega do frete mais rápido.
 
-
 **Protótipo**
 
-![alt text](./doc/prototype.gif "Protótipo")
-
+![alt text](./prototype.gif "Protótipo")
 
 A implementação da aplicação deve utilizar Vue.js e deve seguir os requisitos da história de usuário, cenário e protótipo.
 Do ponto de vista de tecnologia utilizada para implementação, a unica exigência é utilizar Vue.js, outras bibliotecas, componentes e frameworks, podem ser utilizados, desde que sejam de código-aberto.
-
 
 ## Instruções para Implementação
 
@@ -66,6 +64,7 @@ npm install
 
 npm run serve
 ```
+
 Você também vai precisar ligar o servidor da API REST para consultar as cotações dos fretes, utilize o seguinte comando para isso:
 
 ```
@@ -74,11 +73,13 @@ npm run api_serve
 ```
 
 Para testar a api, você pode usar o seguinte comando:
+
 ```
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET  http://localhost:3000/transport
 ```
 
-Ele ira retornar uma lista com os valores das cotações, como  exemplo a seguir:
+Ele ira retornar uma lista com os valores das cotações, como exemplo a seguir:
+
 ```
 $ curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET  http://localhost:3000/transport
 
@@ -118,7 +119,9 @@ Keep-Alive: timeout=5
 ```
 
 ## Avaliação
+
 O que vamos avaliar:
+
 - Atenção aos requisitos do projeto.
 - Atenção as instruções que fornecemos.
 - Lógica.
@@ -128,7 +131,9 @@ O que vamos avaliar:
 - Boas práticas.
 
 ## Instruções
+
 Siga os seguintes passos para a execução do desafio:
+
 1. Crie um repositório **público** no GitHub.
 2. Faça o **clone** do repositório que você acabou de criar.
 3. Extraia os arquivos do "desafio_coorlab.zip" na pasta que você fez o clone do repostório.
@@ -139,4 +144,5 @@ Siga os seguintes passos para a execução do desafio:
 8. Após concluir os passos anteriores, preencha este [formulário](https://airtable.com/shrTjtwUrw7I1CuxE).
 
 ### Importante
-- Não se esqueça de deixar o seu ***repositório público*** para que possamos revisar o seu código.
+
+- Não se esqueça de deixar o seu **_repositório público_** para que possamos revisar o seu código.
