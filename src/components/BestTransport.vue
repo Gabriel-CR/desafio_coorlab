@@ -2,6 +2,7 @@
   <div class="title">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand class="ml-2">
+        <img src="../assets/logo.png" alt="Logo da empresa" />
         <b>{{ appName }}</b>
       </b-navbar-brand>
     </b-navbar>
@@ -44,5 +45,10 @@ export default {
 
 .title .navbar-brand {
   margin-left: 20px;
+}
+
+.title .navbar-brand img {
+  margin-right: 10px;
+  width: 30px;
 }
 </style>
