@@ -6,16 +6,19 @@
         <b>{{ appName }}</b>
       </b-navbar-brand>
     </b-navbar>
+    <Main></Main>
   </div>
 </template>
 
 <script>
 import { BNavbar, BNavbarBrand } from "bootstrap-vue";
+import Main from "./Main.vue";
 
 export default {
   components: {
     BNavbar,
     BNavbarBrand,
+    Main,
   },
   data() {
     const appName = "";
