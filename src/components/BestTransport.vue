@@ -24,13 +24,11 @@
         </InputContainer>
 
         <!-- botao de analisar -->
-        <button type="button" class="btn btn-primary">Analisar</button>
+        <button>Analisar</button>
       </FormContainer>
 
       <!-- saida dos dados -->
-      <OutputContainer
-        class="col-6 col-md-8 d-flex align-items-center justify-content-center"
-      >
+      <OutputContainer>
         <h1>Nenhum dado selecionado</h1>
       </OutputContainer>
     </MainContainer>

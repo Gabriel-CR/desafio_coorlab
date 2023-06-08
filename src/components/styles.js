@@ -35,6 +35,10 @@ export const FormContainer = styled.form`
     width: 50%;
     background-color: #6d8790;
     border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: #f0f0ef;
+    font-weight: bold;
 
     &:hover {
       background-color: #92b5c4;
@@ -44,9 +48,13 @@ export const FormContainer = styled.form`
 
 export const InputContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   & > input {
     margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
 
     &::placeholder {
       color: #4a4a4a;
@@ -55,6 +63,7 @@ export const InputContainer = styled.div`
 
   & > select {
     margin-top: 10px;
+    padding: 5px;
     & > option {
       color: #4a4a4a;
     }
