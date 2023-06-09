@@ -17,14 +17,14 @@
           <label for="cidade">Destino</label>
           <select>
             <option selected>Selecione o destino</option>
-            <option>Fortaleza</option>
+            <option v-for="city in citys" :key="city">{{ city }}</option>
           </select>
         </InputContainer>
 
         <!-- input de peso -->
         <InputContainer>
           <label for="peso">Peso</label>
-          <input placeholder="300 kg" />
+          <input placeholder="300 kg" type="number" />
         </InputContainer>
 
         <!-- botao de analisar -->
@@ -98,15 +98,15 @@ export default {
   },
   data() {
     const appName = "";
-    const showOutput = true;
+    const showOutput = false;
     const data = [];
-    const cidades = [];
+    const citys = [];
 
     return {
       appName,
       showOutput,
       data,
-      cidades,
+      citys,
     };
   },
   created() {
@@ -132,7 +132,13 @@ export default {
       console.log(this.appName);
     },
   },
-  watch: {},
+  watch: {
+    data() {
+      this.data.forEach((element) => {
+        this.citys.push(element.city);
+      });
+    },
+  },
 };
 </script>
 
