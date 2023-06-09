@@ -1,14 +1,17 @@
 <template>
   <div class="title">
     <Navbar>
-      <img src="../assets/logo.png" alt="Logo da empresa" />
+      <img :src="require('../assets/logo.png')" alt="Logo da empresa" />
       <b>{{ appName }}</b>
     </Navbar>
 
     <MainContainer>
       <FormContainer>
         <div class="title">
-          <img src="../assets/map-clock.png" alt="" />
+          <img
+            :src="require('../assets/map-clock.png')"
+            alt="mapa com um relógio"
+          />
           <h1>Insira o destino e o peso</h1>
         </div>
 
@@ -44,42 +47,41 @@
           <InfoFrete>
             <div class="info">
               <div class="img-container">
-                <img src="../assets/give-money.png" alt="mão com moeda" />
+                <img
+                  :src="require('../assets/give-money.png')"
+                  alt="mão com moeda"
+                />
               </div>
 
               <div class="info-text">
                 <p><strong>Frete com menor valor</strong></p>
-                <p>
-                  Transportadora: {{ this.frete.menorValor.transportadora }}
-                </p>
-                <p>Tempo estimado: {{ this.frete.menorValor.tempo }}</p>
+                <p>Transportadora: {{ frete.menorValor.transportadora }}</p>
+                <p>Tempo estimado: {{ frete.menorValor.tempo }}</p>
               </div>
             </div>
 
             <div class="price">
               <p><strong>Preço</strong></p>
-              <p>{{ this.frete.menorValor.preco }}</p>
+              <p>{{ frete.menorValor.preco }}</p>
             </div>
           </InfoFrete>
           <!-- frete com entrega mais rápida -->
           <InfoFrete>
             <div class="info">
               <div class="img-container">
-                <img src="../assets/time.png" alt="mão com moeda" />
+                <img :src="require('../assets/time.png')" alt="mão com moeda" />
               </div>
 
               <div class="info-text">
                 <p><strong>Frete mais rápido</strong></p>
-                <p>
-                  Transportadora: {{ this.frete.maisRapido.transportadora }}
-                </p>
-                <p>Tempo estimado: {{ this.frete.maisRapido.tempo }}</p>
+                <p>Transportadora: {{ frete.maisRapido.transportadora }}</p>
+                <p>Tempo estimado: {{ frete.maisRapido.tempo }}</p>
               </div>
             </div>
 
             <div class="price">
               <p><strong>Preço</strong></p>
-              <p>{{ this.frete.maisRapido.preco }}</p>
+              <p>{{ frete.maisRapido.preco }}</p>
             </div>
           </InfoFrete>
 
@@ -175,63 +177,76 @@ export default {
       this.showOutput = true;
     },
     calculate() {
+      const { city, weight } = this;
+      const availableTransporters = this.data.filter(
+        (transporter) => transporter.city === city
+      );
       // encontrar frete com menor valor para a cidade
-      const menorValor = this.data.reduce((prev, current) => {
-        if (
-          this.convertCashToFloat(
-            this.weight > 100
-              ? prev.cost_transport_heavy
-              : prev.cost_transport_light
-          ) <
-          this.convertCashToFloat(
-            this.weight > 100
-              ? current.cost_transport_heavy
-              : current.cost_transport_light
-          )
-        ) {
-          return prev.city === this.city ? prev : current;
-        }
-        return current.city === this.city ? current : prev;
-      });
+      const menorValor = this.findLowerCostTransporter(
+        availableTransporters,
+        weight
+      );
 
       // encontrar frete mais rápido para a cidade
-      const maisRapido = this.data.reduce((prev, current) => {
-        if (
-          this.convertTimeToFloat(prev.lead_time) <
-          this.convertTimeToFloat(current.lead_time)
-        ) {
-          return prev.city === this.city ? prev : current;
-        }
-        return current.city === this.city ? current : prev;
-      });
+      const maisRapido = this.findFastestTransporter(
+        availableTransporters,
+        weight
+      );
 
       this.frete.menorValor = {
         transportadora: menorValor.name,
         tempo: menorValor.lead_time,
-        preco: `R$ ${(
-          this.convertCashToFloat(
-            this.weight > 100
-              ? menorValor.cost_transport_heavy
-              : menorValor.cost_transport_light
-          ) * this.weight
-        )
+        preco: this.calculateTotalPrice(menorValor, weight)
           .toFixed(2)
-          .replace(".", ",")}`,
+          .replace(".", ","),
       };
 
       this.frete.maisRapido = {
         transportadora: maisRapido.name,
         tempo: maisRapido.lead_time,
-        preco: `R$ ${(
-          this.convertCashToFloat(
-            this.weight > 100
-              ? maisRapido.cost_transport_heavy
-              : maisRapido.cost_transport_light
-          ) * this.weight
-        )
+        preco: this.calculateTotalPrice(maisRapido, weight)
           .toFixed(2)
-          .replace(".", ",")}`,
+          .replace(".", ","),
       };
+    },
+    findLowerCostTransporter(transporters, weight) {
+      return transporters.reduce((prev, current) => {
+        const prevCost =
+          weight > 100 ? prev.cost_transport_heavy : prev.cost_transport_light;
+        const currentCost =
+          weight > 100
+            ? current.cost_transport_heavy
+            : current.cost_transport_light;
+
+        if (
+          this.convertCashToFloat(prevCost) <
+          this.convertCashToFloat(currentCost)
+        ) {
+          return prev;
+        } else {
+          return current;
+        }
+      });
+    },
+    findFastestTransporter(transporters) {
+      return transporters.reduce((prev, current) => {
+        if (
+          this.convertTimeToFloat(prev.lead_time) <
+          this.convertTimeToFloat(current.lead_time)
+        ) {
+          return prev;
+        } else {
+          return current;
+        }
+      });
+    },
+    calculateTotalPrice(transporter, weight) {
+      const cost =
+        weight > 100
+          ? transporter.cost_transport_heavy
+          : transporter.cost_transport_light;
+
+      return this.convertCashToFloat(cost) * weight;
     },
     convertCashToFloat(value) {
       return parseFloat(value.replace("R$ ", "").replace(",", "."));

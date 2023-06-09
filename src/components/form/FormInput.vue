@@ -23,7 +23,7 @@
     </InputContainer>
 
     <!-- botao de analisar -->
-    <button v-on:click="handleSubmit">Analisar</button>
+    <button v-on:click="sendData">Analisar</button>
   </FormContainer>
 </template>
 
@@ -41,20 +41,16 @@ export default {
     citys: Array,
   },
   methods: {
-    handleSubmit() {
-      // const store = useStore();
-      // store.dispatch("setCity", this.city);
-      // store.dispatch("setWeight", this.weight);
+    sendData(event) {
+      console.log(this.city, this.weight);
+      this.$emit("send-data", this.city, this.weight, event);
       console.log("oi");
     },
   },
   data() {
-    const city = "Selecione o destino";
-    const weight = "";
-
     return {
-      city,
-      weight,
+      city: "Selecione o destino",
+      weight: "",
     };
   },
 };
