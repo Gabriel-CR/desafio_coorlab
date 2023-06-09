@@ -173,8 +173,7 @@ export default {
         this.weight === "" ||
         this.weight == 0
       ) {
-        // TODO: fazer alert pop up
-        alert("Preencha todos os campos");
+        this.$alert("", "Insira os valores para realizar a análise", "warning");
         return;
       }
 
