@@ -107,12 +107,32 @@ export const OutputContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 
+  * {
+    border: 1px solid red;
+  }
+
   & > div {
     width: 100%;
-    height: 70%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: flex-end;
+
+    & > button {
+      width: 30%;
+      background-color: #6d8790;
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      color: #f0f0ef;
+      font-weight: bold;
+      margin-top: 50px;
+
+      &:hover {
+        background-color: #92b5c4;
+      }
+    }
   }
 
   h2 {

@@ -76,6 +76,7 @@
               <p>{{ this.frete.maisRapido.preco }}</p>
             </div>
           </InfoFrete>
+          <button>Limpar</button>
         </div>
         <h2 v-else>Nenhum dado selecionado</h2>
       </OutputContainer>
