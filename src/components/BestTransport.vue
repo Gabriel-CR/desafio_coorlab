@@ -14,6 +14,7 @@
           <label for="cidade">Destino</label>
           <select>
             <option selected>Selecione o destino</option>
+            <option>Fortaleza</option>
           </select>
         </InputContainer>
 
