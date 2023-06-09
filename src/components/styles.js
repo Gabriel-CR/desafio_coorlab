@@ -26,7 +26,20 @@ export const FormContainer = styled.form`
   align-items: center;
   gap: 8%;
 
-  & > h1 {
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    & > img {
+      width: 50px;
+    }
+  }
+
+  h1 {
     font-size: 1.5rem;
     color: #4a4a4a;
   }

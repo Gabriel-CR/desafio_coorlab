@@ -7,7 +7,10 @@
 
     <MainContainer>
       <FormContainer>
-        <h1>Insira o destino e o peso</h1>
+        <div class="title">
+          <img src="../assets/map-clock.png" alt="">
+          <h1>Insira o destino e o peso</h1>
+        </div>
 
         <!-- input de destino -->
         <InputContainer>
