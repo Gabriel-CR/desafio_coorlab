@@ -107,10 +107,6 @@ export const OutputContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  * {
-    border: 1px solid red;
-  }
-
   & > div {
     width: 100%;
     height: 80%;

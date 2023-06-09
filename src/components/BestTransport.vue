@@ -76,7 +76,7 @@
               <p>{{ this.frete.maisRapido.preco }}</p>
             </div>
           </InfoFrete>
-          <button>Limpar</button>
+          <button v-on:click="clear">Limpar</button>
         </div>
         <h2 v-else>Nenhum dado selecionado</h2>
       </OutputContainer>
@@ -211,6 +211,24 @@ export default {
       this.showOutput = true;
       console.log(this.frete.menorValor);
       console.log(this.frete.maisRapido);
+    },
+    clear(event) {
+      event.preventDefault();
+      this.showOutput = false;
+      this.city = "Selecione o destino";
+      this.weight = "";
+      this.frete = {
+        menorValor: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+        maisRapido: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+      };
     },
   },
   watch: {
