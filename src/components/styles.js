@@ -87,6 +87,76 @@ export const InputContainer = styled.div`
 
 export const OutputContainer = styled.div`
   width: 60%;
+  height: 90%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  & > div {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+  }
+`;
+
+export const InfoFrete = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: #4a4a4a;
+
+  .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f0f0ef;
+    border-radius: 0 5px 5px 0;
+    width: 73%;
+
+    .info-text {
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .img-container {
+    background-color: #92b5c4;
+    border-radius: 5px 0 0 5px;
+    padding: 20px;
+    width: 20%;
+    height: 100%;
+    margin-right: 40px;
+
+    & > img {
+      width: 100%;
+    }
+  }
+
+  .price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f0f0ef;
+    border-radius: 5px;
+    padding: 20px;
+    width: 25%;
+
+    p {
+      margin-bottom: 7px;
+    }
+  }
 `;
 
 export const MainContainer = styled.div`

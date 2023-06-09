@@ -30,7 +30,45 @@
 
       <!-- saida dos dados -->
       <OutputContainer>
-        <h1>Nenhum dado selecionado</h1>
+        <div v-if="showOutput">
+          <h2>
+            Estas são as melhores alternativas de frete que encontramos para
+            você.
+          </h2>
+          <InfoFrete>
+            <div class="info">
+              <div class="img-container">
+                <img src="../assets/give-money.png" alt="mão com moeda" />
+              </div>
+              <div class="info-text">
+                <p><strong>Frete com menor valor</strong></p>
+                <p>Transportadora: ABCDEFGH LTDA</p>
+                <p>Tempo estimado: 6h</p>
+              </div>
+            </div>
+            <div class="price">
+              <p><strong>Preço</strong></p>
+              <p>R$ 1250,00</p>
+            </div>
+          </InfoFrete>
+          <InfoFrete>
+            <div class="info">
+              <div class="img-container">
+                <img src="../assets/time.png" alt="mão com moeda" />
+              </div>
+              <div class="info-text">
+                <p><strong>Frete mais rápido</strong></p>
+                <p>Transportadora: ABCDEFGH LTDA</p>
+                <p>Tempo estimado: 6h</p>
+              </div>
+            </div>
+            <div class="price">
+              <p><strong>Preço</strong></p>
+              <p>R$ 1250,00</p>
+            </div>
+          </InfoFrete>
+        </div>
+        <h2 v-else>Nenhum dado selecionado</h2>
       </OutputContainer>
     </MainContainer>
   </div>
@@ -43,6 +81,7 @@ import {
   FormContainer,
   OutputContainer,
   InputContainer,
+  InfoFrete,
 } from "@/components/styles.js";
 
 export default {
@@ -52,12 +91,15 @@ export default {
     FormContainer,
     OutputContainer,
     InputContainer,
+    InfoFrete,
   },
   data() {
     const appName = "";
+    const showOutput = true;
 
     return {
       appName,
+      showOutput,
     };
   },
   created() {
