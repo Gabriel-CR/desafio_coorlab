@@ -17,18 +17,20 @@
           <label for="cidade">Destino</label>
           <select>
             <option selected>Selecione o destino</option>
-            <option v-for="city in citys" :key="city">{{ city }}</option>
+            <option v-for="c in citys" :key="c.id">
+              {{ c }}
+            </option>
           </select>
         </InputContainer>
 
         <!-- input de peso -->
         <InputContainer>
           <label for="peso">Peso</label>
-          <input placeholder="300 kg" type="number" />
+          <input placeholder="300 kg" type="number" value="weight" />
         </InputContainer>
 
         <!-- botao de analisar -->
-        <button>Analisar</button>
+        <button v-on:click="handleSubmit">Analisar</button>
       </FormContainer>
 
       <!-- saida dos dados -->
@@ -102,11 +104,16 @@ export default {
     const data = [];
     const citys = [];
 
+    const city = "";
+    const weight = 0;
+
     return {
       appName,
       showOutput,
       data,
       citys,
+      city,
+      weight,
     };
   },
   created() {
@@ -117,7 +124,6 @@ export default {
       .then((response) => {
         response.json().then((data) => {
           this.data = data;
-          console.log(this.data);
         });
       })
       .catch((err) => {
@@ -131,12 +137,18 @@ export default {
     methodFoo() {
       console.log(this.appName);
     },
+    handleSubmit() {
+      this.showOutput = true;
+      console.log(this.city);
+      console.log(this.weight);
+    },
   },
   watch: {
     data() {
       this.data.forEach((element) => {
-        this.citys.push(element.city);
+        this.citys.push({ city: element.city, key: element.id });
       });
+      console.log(this.citys);
     },
   },
 };
