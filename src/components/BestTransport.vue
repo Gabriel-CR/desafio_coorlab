@@ -112,35 +112,27 @@ export default {
     InfoFrete,
   },
   data() {
-    const appName = "";
-    const showOutput = false;
-    const data = [];
-    const citys = [];
-
-    const city = "Selecione o destino";
-    const weight = "";
-
-    const frete = {
-      menorValor: {
-        transportadora: "",
-        tempo: "",
-        preco: "",
-      },
-      maisRapido: {
-        transportadora: "",
-        tempo: "",
-        preco: "",
-      },
-    };
-
     return {
-      appName,
-      showOutput,
-      data,
-      citys,
-      city,
-      weight,
-      frete,
+      appName: "",
+      showOutput: false,
+      data: [],
+      citys: [],
+
+      city: "Selecione o destino",
+      weight: "",
+
+      frete: {
+        menorValor: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+        maisRapido: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+      },
     };
   },
   created() {
