@@ -165,52 +165,75 @@ export default {
         return;
       }
 
-      this.frete.menorValor.preco = this.data[0].cost_transport_light;
-      this.frete.menorValor.transportadora = this.data[0].name;
-      this.frete.menorValor.tempo = this.data[0].lead_time;
-
-      this.frete.maisRapido.preco = this.data[0].cost_transport_heavy;
-      this.frete.maisRapido.tempo = this.data[0].lead_time;
-      this.frete.maisRapido.transportadora = this.data[0].name;
-
-      if (this.weight > 100) {
-        this.frete.menorValor.preco = this.data[0].cost_transport_heavy;
-        this.frete.maisRapido.preco = this.data[0].cost_transport_heavy;
-      }
-
-      // encontrar frete com menor valor
-      for (let i = 0; i < this.data.length; i++) {
-        if (this.data[i].city === this.city) {
-          if (this.data[i].cost_transport_light < this.frete.menorValor.preco) {
-            this.frete.menorValor.transportadora = this.data[i].name;
-            this.frete.menorValor.tempo = this.data[i].lead_time;
-            if (this.weight > 100) {
-              this.frete.menorValor.preco = this.data[i].cost_transport_heavy;
-            } else {
-              this.frete.menorValor.preco = this.data[i].cost_transport_light;
-            }
-          }
-        }
-      }
-
-      // encontrar frete mais rápido
-      for (let i = 0; i < this.data.length; i++) {
-        if (this.data[i].city === this.city) {
-          if (this.data[i].lead_time < this.frete.maisRapido.tempo) {
-            this.frete.maisRapido.transportadora = this.data[i].name;
-            this.frete.maisRapido.tempo = this.data[i].lead_time;
-            if (this.weight > 100) {
-              this.frete.maisRapido.preco = this.data[i].cost_transport_heavy;
-            } else {
-              this.frete.maisRapido.preco = this.data[i].cost_transport_light;
-            }
-          }
-        }
-      }
+      // calcular o frete
+      this.calculate();
 
       this.showOutput = true;
-      console.log(this.frete.menorValor);
-      console.log(this.frete.maisRapido);
+    },
+    calculate() {
+      // encontrar frete com menor valor para a cidade
+      const menorValor = this.data.reduce((prev, current) => {
+        if (
+          this.convertCashToFloat(
+            this.weight > 100
+              ? prev.cost_transport_heavy
+              : prev.cost_transport_light
+          ) <
+          this.convertCashToFloat(
+            this.weight > 100
+              ? current.cost_transport_heavy
+              : current.cost_transport_light
+          )
+        ) {
+          return prev.city === this.city ? prev : current;
+        }
+        return current;
+      });
+
+      // encontrar frete mais rápido para a cidade
+      const maisRapido = this.data.reduce((prev, current) => {
+        if (
+          this.convertTimeToFloat(prev.lead_time) <
+          this.convertTimeToFloat(current.lead_time)
+        ) {
+          return prev.city === this.city ? prev : current;
+        }
+        return current;
+      });
+
+      this.frete.menorValor = {
+        transportadora: menorValor.name,
+        tempo: menorValor.lead_time,
+        preco: `R$ ${(
+          this.convertCashToFloat(
+            this.weight > 100
+              ? menorValor.cost_transport_heavy
+              : menorValor.cost_transport_light
+          ) * this.weight
+        )
+          .toFixed(2)
+          .replace(".", ",")}`,
+      };
+
+      this.frete.maisRapido = {
+        transportadora: maisRapido.name,
+        tempo: maisRapido.lead_time,
+        preco: `R$ ${(
+          this.convertCashToFloat(
+            this.weight > 100
+              ? maisRapido.cost_transport_heavy
+              : maisRapido.cost_transport_light
+          ) * this.weight
+        )
+          .toFixed(2)
+          .replace(".", ",")}`,
+      };
+    },
+    convertCashToFloat(value) {
+      return parseFloat(value.replace("R$ ", "").replace(",", "."));
+    },
+    convertTimeToFloat(value) {
+      return parseInt(value.replace("h", ""));
     },
     clear(event) {
       event.preventDefault();
