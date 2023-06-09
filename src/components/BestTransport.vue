@@ -8,7 +8,7 @@
     <MainContainer>
       <FormContainer>
         <div class="title">
-          <img src="../assets/map-clock.png" alt="">
+          <img src="../assets/map-clock.png" alt="" />
           <h1>Insira o destino e o peso</h1>
         </div>
 
@@ -99,15 +99,30 @@ export default {
   data() {
     const appName = "";
     const showOutput = true;
+    const data = [];
+    const cidades = [];
 
     return {
       appName,
       showOutput,
+      data,
+      cidades,
     };
   },
   created() {
     // Implemente aqui o GET dos dados da API REST
     // para que isso ocorra na inicialização da pagina
+
+    fetch("http://localhost:3000/transport")
+      .then((response) => {
+        response.json().then((data) => {
+          this.data = data;
+          console.log(this.data);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     this.appName = "Melhor Frete";
   },
