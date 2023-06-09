@@ -13,6 +13,20 @@ export const Navbar = styled.nav`
     height: 50px;
     margin: 0 20px 0 20px;
   }
+
+  & > b {
+    font-size: 2rem;
+  }
+`;
+
+export const MainContainer = styled.div`
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3%;
 `;
 
 export const FormContainer = styled.form`
@@ -37,6 +51,10 @@ export const FormContainer = styled.form`
 
     & > img {
       width: 50px;
+    }
+
+    & > h1 {
+      font-size: 2rem;
     }
   }
 
@@ -114,7 +132,10 @@ export const OutputContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: flex-end;
+
+    & > h2 {
+      font-size: 2rem;
+    }
 
     & > button {
       width: 30%;
@@ -125,6 +146,7 @@ export const OutputContainer = styled.div`
       color: #f0f0ef;
       font-weight: bold;
       margin-top: 50px;
+      margin-left: auto;
 
       &:hover {
         background-color: #92b5c4;
@@ -157,6 +179,7 @@ export const InfoFrete = styled.div`
     .info-text {
       p {
         margin: 0;
+        font-size: 1.5rem;
       }
     }
   }
@@ -182,19 +205,11 @@ export const InfoFrete = styled.div`
     border-radius: 5px;
     padding: 20px;
     width: 25%;
+    height: 100%;
 
     p {
       margin-bottom: 7px;
+      font-size: 1.5rem;
     }
   }
-`;
-
-export const MainContainer = styled.div`
-  width: 100%;
-  height: 90vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0 3%;
 `;

@@ -40,11 +40,13 @@
             Estas são as melhores alternativas de frete que encontramos para
             você.
           </h2>
+          <!-- frete mais barato -->
           <InfoFrete>
             <div class="info">
               <div class="img-container">
                 <img src="../assets/give-money.png" alt="mão com moeda" />
               </div>
+
               <div class="info-text">
                 <p><strong>Frete com menor valor</strong></p>
                 <p>
@@ -53,16 +55,19 @@
                 <p>Tempo estimado: {{ this.frete.menorValor.tempo }}</p>
               </div>
             </div>
+
             <div class="price">
               <p><strong>Preço</strong></p>
               <p>{{ this.frete.menorValor.preco }}</p>
             </div>
           </InfoFrete>
+          <!-- frete com entrega mais rápida -->
           <InfoFrete>
             <div class="info">
               <div class="img-container">
                 <img src="../assets/time.png" alt="mão com moeda" />
               </div>
+
               <div class="info-text">
                 <p><strong>Frete mais rápido</strong></p>
                 <p>
@@ -71,13 +76,16 @@
                 <p>Tempo estimado: {{ this.frete.maisRapido.tempo }}</p>
               </div>
             </div>
+
             <div class="price">
               <p><strong>Preço</strong></p>
               <p>{{ this.frete.maisRapido.preco }}</p>
             </div>
           </InfoFrete>
+
           <button v-on:click="clear">Limpar</button>
         </div>
+
         <h2 v-else>Nenhum dado selecionado</h2>
       </OutputContainer>
     </MainContainer>
@@ -160,7 +168,12 @@ export default {
       event.preventDefault();
 
       // verificar se os campos estão preenchidos
-      if (this.city === "Selecione o destino" || this.weight === "") {
+      if (
+        this.city === "Selecione o destino" ||
+        this.weight === "" ||
+        this.weight == 0
+      ) {
+        // TODO: fazer alert pop up
         alert("Preencha todos os campos");
         return;
       }
@@ -187,7 +200,7 @@ export default {
         ) {
           return prev.city === this.city ? prev : current;
         }
-        return current;
+        return current.city === this.city ? current : prev;
       });
 
       // encontrar frete mais rápido para a cidade
@@ -198,7 +211,7 @@ export default {
         ) {
           return prev.city === this.city ? prev : current;
         }
-        return current;
+        return current.city === this.city ? current : prev;
       });
 
       this.frete.menorValor = {
