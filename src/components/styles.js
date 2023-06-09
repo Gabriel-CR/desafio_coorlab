@@ -203,12 +203,12 @@ export const InfoFrete = styled.div`
     justify-content: center;
     background-color: #f0f0ef;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px 20px;
     width: 25%;
     height: 100%;
 
     p {
-      margin-bottom: 7px;
+      margin-bottom: 5px;
       font-size: 1.5rem;
     }
   }
