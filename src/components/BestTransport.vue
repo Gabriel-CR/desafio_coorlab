@@ -15,10 +15,10 @@
         <!-- input de destino -->
         <InputContainer>
           <label for="cidade">Destino</label>
-          <select>
+          <select v-model="city">
             <option selected>Selecione o destino</option>
             <option v-for="c in citys" :key="c.id">
-              {{ c }}
+              {{ c.city }}
             </option>
           </select>
         </InputContainer>
@@ -26,7 +26,7 @@
         <!-- input de peso -->
         <InputContainer>
           <label for="peso">Peso</label>
-          <input placeholder="300 kg" type="number" value="weight" />
+          <input placeholder="300 kg" type="number" v-model="weight" />
         </InputContainer>
 
         <!-- botao de analisar -->
@@ -47,13 +47,15 @@
               </div>
               <div class="info-text">
                 <p><strong>Frete com menor valor</strong></p>
-                <p>Transportadora: ABCDEFGH LTDA</p>
-                <p>Tempo estimado: 6h</p>
+                <p>
+                  Transportadora: {{ this.frete.menorValor.transportadora }}
+                </p>
+                <p>Tempo estimado: {{ this.frete.menorValor.tempo }}</p>
               </div>
             </div>
             <div class="price">
               <p><strong>Preço</strong></p>
-              <p>R$ 1250,00</p>
+              <p>{{ this.frete.menorValor.preco }}</p>
             </div>
           </InfoFrete>
           <InfoFrete>
@@ -63,13 +65,15 @@
               </div>
               <div class="info-text">
                 <p><strong>Frete mais rápido</strong></p>
-                <p>Transportadora: ABCDEFGH LTDA</p>
-                <p>Tempo estimado: 6h</p>
+                <p>
+                  Transportadora: {{ this.frete.maisRapido.transportadora }}
+                </p>
+                <p>Tempo estimado: {{ this.frete.maisRapido.tempo }}</p>
               </div>
             </div>
             <div class="price">
               <p><strong>Preço</strong></p>
-              <p>R$ 1250,00</p>
+              <p>{{ this.frete.maisRapido.preco }}</p>
             </div>
           </InfoFrete>
         </div>
@@ -104,8 +108,21 @@ export default {
     const data = [];
     const citys = [];
 
-    const city = "";
-    const weight = 0;
+    const city = "Selecione o destino";
+    const weight = "";
+
+    const frete = {
+      menorValor: {
+        transportadora: "",
+        tempo: "",
+        preco: "",
+      },
+      maisRapido: {
+        transportadora: "",
+        tempo: "",
+        preco: "",
+      },
+    };
 
     return {
       appName,
@@ -114,6 +131,7 @@ export default {
       citys,
       city,
       weight,
+      frete,
     };
   },
   created() {
@@ -137,10 +155,61 @@ export default {
     methodFoo() {
       console.log(this.appName);
     },
-    handleSubmit() {
+    handleSubmit(event) {
+      event.preventDefault();
+
+      // verificar se os campos estão preenchidos
+      if (this.city === "Selecione o destino" || this.weight === "") {
+        alert("Preencha todos os campos");
+        return;
+      }
+
+      this.frete.menorValor.preco = this.data[0].cost_transport_light;
+      this.frete.menorValor.transportadora = this.data[0].name;
+      this.frete.menorValor.tempo = this.data[0].lead_time;
+
+      this.frete.maisRapido.preco = this.data[0].cost_transport_heavy;
+      this.frete.maisRapido.tempo = this.data[0].lead_time;
+      this.frete.maisRapido.transportadora = this.data[0].name;
+
+      if (this.weight > 100) {
+        this.frete.menorValor.preco = this.data[0].cost_transport_heavy;
+        this.frete.maisRapido.preco = this.data[0].cost_transport_heavy;
+      }
+
+      // encontrar frete com menor valor
+      for (let i = 0; i < this.data.length; i++) {
+        if (this.data[i].city === this.city) {
+          if (this.data[i].cost_transport_light < this.frete.menorValor.preco) {
+            this.frete.menorValor.transportadora = this.data[i].name;
+            this.frete.menorValor.tempo = this.data[i].lead_time;
+            if (this.weight > 100) {
+              this.frete.menorValor.preco = this.data[i].cost_transport_heavy;
+            } else {
+              this.frete.menorValor.preco = this.data[i].cost_transport_light;
+            }
+          }
+        }
+      }
+
+      // encontrar frete mais rápido
+      for (let i = 0; i < this.data.length; i++) {
+        if (this.data[i].city === this.city) {
+          if (this.data[i].lead_time < this.frete.maisRapido.tempo) {
+            this.frete.maisRapido.transportadora = this.data[i].name;
+            this.frete.maisRapido.tempo = this.data[i].lead_time;
+            if (this.weight > 100) {
+              this.frete.maisRapido.preco = this.data[i].cost_transport_heavy;
+            } else {
+              this.frete.maisRapido.preco = this.data[i].cost_transport_light;
+            }
+          }
+        }
+      }
+
       this.showOutput = true;
-      console.log(this.city);
-      console.log(this.weight);
+      console.log(this.frete.menorValor);
+      console.log(this.frete.maisRapido);
     },
   },
   watch: {
@@ -148,7 +217,6 @@ export default {
       this.data.forEach((element) => {
         this.citys.push({ city: element.city, key: element.id });
       });
-      console.log(this.citys);
     },
   },
 };
