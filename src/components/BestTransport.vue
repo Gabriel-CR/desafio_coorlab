@@ -1,117 +1,27 @@
 <template>
   <div class="title">
-    <Navbar>
-      <img :src="require('../assets/logo.png')" alt="Logo da empresa" />
-      <b>{{ appName }}</b>
-    </Navbar>
+    <Navbar :appName="appName" />
 
     <MainContainer>
-      <FormContainer>
-        <div class="title">
-          <img
-            :src="require('../assets/map-clock.png')"
-            alt="mapa com um relógio"
-          />
-          <h1>Insira o destino e o peso</h1>
-        </div>
-
-        <!-- input de destino -->
-        <InputContainer>
-          <label for="cidade">Destino</label>
-          <select v-model="city">
-            <option selected>Selecione o destino</option>
-            <option v-for="c in citys" :key="c.id">
-              {{ c.city }}
-            </option>
-          </select>
-        </InputContainer>
-
-        <!-- input de peso -->
-        <InputContainer>
-          <label for="peso">Peso</label>
-          <input placeholder="300 kg" type="number" v-model="weight" />
-        </InputContainer>
-
-        <!-- botao de analisar -->
-        <button v-on:click="handleSubmit">Analisar</button>
-      </FormContainer>
-
-      <!-- saida dos dados -->
-      <OutputContainer>
-        <div v-if="showOutput">
-          <h2>
-            Estas são as melhores alternativas de frete que encontramos para
-            você.
-          </h2>
-          <!-- frete mais barato -->
-          <InfoFrete>
-            <div class="info">
-              <div class="img-container">
-                <img
-                  :src="require('../assets/give-money.png')"
-                  alt="mão com moeda"
-                />
-              </div>
-
-              <div class="info-text">
-                <p><strong>Frete com menor valor</strong></p>
-                <p>Transportadora: {{ frete.menorValor.transportadora }}</p>
-                <p>Tempo estimado: {{ frete.menorValor.tempo }}</p>
-              </div>
-            </div>
-
-            <div class="price">
-              <p><strong>Preço</strong></p>
-              <p>{{ frete.menorValor.preco }}</p>
-            </div>
-          </InfoFrete>
-          <!-- frete com entrega mais rápida -->
-          <InfoFrete>
-            <div class="info">
-              <div class="img-container">
-                <img :src="require('../assets/time.png')" alt="mão com moeda" />
-              </div>
-
-              <div class="info-text">
-                <p><strong>Frete mais rápido</strong></p>
-                <p>Transportadora: {{ frete.maisRapido.transportadora }}</p>
-                <p>Tempo estimado: {{ frete.maisRapido.tempo }}</p>
-              </div>
-            </div>
-
-            <div class="price">
-              <p><strong>Preço</strong></p>
-              <p>{{ frete.maisRapido.preco }}</p>
-            </div>
-          </InfoFrete>
-
-          <button v-on:click="clear">Limpar</button>
-        </div>
-
-        <h2 v-else>Nenhum dado selecionado</h2>
-      </OutputContainer>
+      <Form :citys="citys" @emit-submit="receiveSubmit" :clear="clear" />
+      <Output :showOutput="showOutput" :frete="frete" @emit-clear="emitClear" />
     </MainContainer>
   </div>
 </template>
 
 <script>
-import {
-  MainContainer,
-  Navbar,
-  FormContainer,
-  OutputContainer,
-  InputContainer,
-  InfoFrete,
-} from "@/components/styles.js";
+import Navbar from "./Navbar.vue";
+import Form from "./Form.vue";
+import Output from "./Output.vue";
+import { MainContainer } from "./styles.js";
 
 export default {
+  name: "MainComponent",
   components: {
-    MainContainer,
     Navbar,
-    FormContainer,
-    OutputContainer,
-    InputContainer,
-    InfoFrete,
+    Form,
+    Output,
+    MainContainer,
   },
   data() {
     return {
@@ -120,8 +30,7 @@ export default {
       data: [],
       citys: [],
 
-      city: "Selecione o destino",
-      weight: "",
+      clear: false,
 
       frete: {
         menorValor: {
@@ -154,13 +63,28 @@ export default {
     this.appName = "Melhor Frete";
   },
   methods: {
-    // Implemente aqui os metodos utilizados na pagina
-    methodFoo() {
-      console.log(this.appName);
+    emitClear() {
+      this.showOutput = false;
+      this.clear = !this.clear;
+      this.frete = {
+        menorValor: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+        maisRapido: {
+          transportadora: "",
+          tempo: "",
+          preco: "",
+        },
+      };
     },
-    handleSubmit(event) {
-      event.preventDefault();
-
+    receiveSubmit({ city, weight }) {
+      this.city = city;
+      this.weight = weight;
+      this.handleSubmit();
+    },
+    handleSubmit() {
       // verificar se os campos estão preenchidos
       if (
         this.city === "Selecione o destino" ||
@@ -253,24 +177,6 @@ export default {
     },
     convertTimeToFloat(value) {
       return parseInt(value.replace("h", ""));
-    },
-    clear(event) {
-      event.preventDefault();
-      this.showOutput = false;
-      this.city = "Selecione o destino";
-      this.weight = "";
-      this.frete = {
-        menorValor: {
-          transportadora: "",
-          tempo: "",
-          preco: "",
-        },
-        maisRapido: {
-          transportadora: "",
-          tempo: "",
-          preco: "",
-        },
-      };
     },
   },
   watch: {

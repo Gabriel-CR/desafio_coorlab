@@ -1,6 +1,6 @@
 import styled from "vue-styled-components";
 
-export const Navbar = styled.nav`
+export const NavbarStyle = styled.nav`
   height: 10vh;
   background-color: #92b5c4;
   display: flex;
