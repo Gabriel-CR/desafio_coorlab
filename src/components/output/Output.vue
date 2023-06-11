@@ -5,7 +5,7 @@
         Estas são as melhores alternativas de frete que encontramos para você.
       </h2>
       <Frete
-        :image="require('../assets/give-money.png')"
+        :image="require('../../assets/give-money.png')"
         alt="clock"
         :transportadora="frete.menorValor.transportadora"
         :tempo="frete.menorValor.tempo"
@@ -13,7 +13,7 @@
       />
 
       <Frete
-        :image="require('../assets/time.png')"
+        :image="require('../../assets/time.png')"
         alt="mão com moeda"
         :transportadora="frete.maisRapido.transportadora"
         :tempo="frete.maisRapido.tempo"
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Frete from "./frete/Frete.vue";
+import Frete from "../frete/Frete.vue";
 import { OutputContainer } from "./styles.js";
 
 export default {

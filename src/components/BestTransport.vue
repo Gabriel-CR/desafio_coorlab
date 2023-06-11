@@ -12,7 +12,7 @@
 <script>
 import Navbar from "./navbar/Navbar.vue";
 import Form from "./form/Form.vue";
-import Output from "./Output.vue";
+import Output from "./output/Output.vue";
 import { MainContainer } from "./styles.js";
 
 export default {
