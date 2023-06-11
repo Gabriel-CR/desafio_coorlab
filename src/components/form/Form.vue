@@ -1,40 +1,51 @@
 <template>
   <FormContainer>
-    <div class="title">
+    <Title>
       <img src="../../assets/map-clock.png" alt="mapa com um relógio" />
       <h1>Insira o destino e o peso</h1>
-    </div>
+    </Title>
 
     <!-- input de destino -->
     <InputContainer>
       <label for="cidade">Destino</label>
-      <select v-model="city">
+      <Select v-model="city">
         <option selected>Selecione o destino</option>
         <option v-for="c in citys" :key="c.id">
           {{ c.city }}
         </option>
-      </select>
+      </Select>
     </InputContainer>
 
     <!-- input de peso -->
     <InputContainer>
       <label for="peso">Peso</label>
-      <input placeholder="300 kg" type="number" v-model="weight" />
+      <Input placeholder="300 kg" type="number" v-model="weight" />
     </InputContainer>
 
     <!-- botao de analisar -->
-    <button @click="emitSubmit">Analisar</button>
+    <Button @click="emitSubmit">Analisar</Button>
   </FormContainer>
 </template>
 
 <script>
-import { FormContainer, InputContainer } from "./styles.js";
+import {
+  FormContainer,
+  InputContainer,
+  Title,
+  Button,
+  Select,
+  Input,
+} from "./styles.js";
 
 export default {
   name: "form-component",
   components: {
     FormContainer,
     InputContainer,
+    Title,
+    Button,
+    Select,
+    Input,
   },
   props: {
     citys: Array,
