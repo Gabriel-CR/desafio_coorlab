@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Frete from "./Frete.vue";
+import Frete from "./frete/Frete.vue";
 import { OutputContainer } from "./styles.js";
 
 export default {
