@@ -1,31 +1,34 @@
 <template>
   <InfoFrete>
-    <div class="info">
-      <div class="img-container">
+    <Info>
+      <ImageContainer>
         <img :src="image" :alt="alt" />
-      </div>
+      </ImageContainer>
 
-      <div class="info-text">
+      <div>
         <p><strong>Frete com menor valor</strong></p>
         <p>Transportadora: {{ transportadora }}</p>
         <p>Tempo estimado: {{ tempo }}</p>
       </div>
-    </div>
+    </Info>
 
-    <div class="price">
+    <Price>
       <p><strong>Preço</strong></p>
       <p>{{ preco }}</p>
-    </div>
+    </Price>
   </InfoFrete>
 </template>
 
 <script>
-import { InfoFrete } from "./styles.js";
+import { InfoFrete, Price, ImageContainer, Info } from "./styles.js";
 
 export default {
   name: "frete-component",
   components: {
     InfoFrete,
+    Price,
+    ImageContainer,
+    Info,
   },
   props: {
     image: String,
