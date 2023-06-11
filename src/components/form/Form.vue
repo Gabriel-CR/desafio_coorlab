@@ -1,10 +1,7 @@
 <template>
   <FormContainer>
     <div class="title">
-      <img
-        :src="require('../assets/map-clock.png')"
-        alt="mapa com um relógio"
-      />
+      <img src="../../assets/map-clock.png" alt="mapa com um relógio" />
       <h1>Insira o destino e o peso</h1>
     </div>
 
