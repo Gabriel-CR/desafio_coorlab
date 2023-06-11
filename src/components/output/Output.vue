@@ -4,6 +4,7 @@
       <h2>
         Estas são as melhores alternativas de frete que encontramos para você.
       </h2>
+
       <Frete
         :image="require('../../assets/give-money.png')"
         alt="clock"
@@ -42,9 +43,6 @@ export default {
   props: {
     showOutput: Boolean,
     frete: Object,
-  },
-  data() {
-    return {};
   },
   methods: {
     clear(event) {

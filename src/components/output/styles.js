@@ -9,7 +9,7 @@ export const OutputContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  h2 {
+  & > h2 {
     font-size: 1.5rem;
     color: #4a4a4a;
   }
