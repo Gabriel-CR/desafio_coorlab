@@ -25,6 +25,8 @@ export default {
   },
   data() {
     return {
+      darkMode: false,
+
       appName: "",
       showOutput: false,
       data: [],
