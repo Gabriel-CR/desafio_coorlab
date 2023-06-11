@@ -1,6 +1,6 @@
 <template>
   <NavbarStyle>
-    <img :src="require('../assets/logo.png')" alt="Logo da empresa" />
+    <img src="../../assets/logo.png" alt="Logo da empresa" />
     <b>{{ appName }}</b>
   </NavbarStyle>
 </template>
@@ -18,3 +18,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Navbar from "./Navbar.vue";
+import Navbar from "./navbar/Navbar.vue";
 import Form from "./Form.vue";
 import Output from "./Output.vue";
 import { MainContainer } from "./styles.js";

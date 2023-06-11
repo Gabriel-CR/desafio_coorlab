@@ -6,6 +6,7 @@ export const NavbarStyle = styled.nav`
   display: flex;
   align-items: center;
   padding: 0 4%;
+  
   & > img {
     width: 50px;
     height: 50px;
