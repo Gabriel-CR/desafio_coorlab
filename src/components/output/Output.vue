@@ -1,6 +1,6 @@
 <template>
   <OutputContainer>
-    <div v-if="showOutput">
+    <Output v-if="showOutput">
       <h2>
         Estas são as melhores alternativas de frete que encontramos para você.
       </h2>
@@ -20,8 +20,8 @@
         :preco="frete.maisRapido.preco"
       />
 
-      <button @click="clear">Limpar</button>
-    </div>
+      <Button @click="clear">Limpar</Button>
+    </Output>
 
     <h2 v-else>Nenhum dado selecionado</h2>
   </OutputContainer>
@@ -29,13 +29,15 @@
 
 <script>
 import Frete from "../frete/Frete.vue";
-import { OutputContainer } from "./styles.js";
+import { OutputContainer, Output, Button } from "./styles.js";
 
 export default {
   name: "output-component",
   components: {
     Frete,
     OutputContainer,
+    Output,
+    Button,
   },
   props: {
     showOutput: Boolean,
