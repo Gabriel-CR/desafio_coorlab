@@ -2,7 +2,7 @@
 
 ## Desafio em execução
 
-[![Watch the video](https://img.youtube.com/vi/https://youtu.be/FthkPrFS874/0.jpg)](https://youtu.be/FthkPrFS874)
+Clique <a href="https://youtu.be/FthkPrFS874" target="_blank">aqui</a> para assistir o vídeo do desafio em execução.
 
 ## Implementação
 
