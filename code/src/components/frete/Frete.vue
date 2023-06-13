@@ -6,7 +6,7 @@
       </ImageContainer>
 
       <div>
-        <p><strong>Frete com menor valor</strong></p>
+        <p><strong>{{ title }}</strong></p>
         <p>Transportadora: {{ transportadora }}</p>
         <p>Tempo estimado: {{ tempo }}</p>
       </div>
@@ -31,6 +31,7 @@ export default {
     Info,
   },
   props: {
+    title: String,
     image: String,
     alt: String,
     transportadora: String,

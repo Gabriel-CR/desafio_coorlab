@@ -6,6 +6,7 @@
       </h2>
 
       <Frete
+        title="Frete com menor valor"
         :image="require('../../assets/give-money.png')"
         alt="clock"
         :transportadora="frete.menorValor.transportadora"
@@ -14,6 +15,7 @@
       />
 
       <Frete
+        title="Frete mais rápido"
         :image="require('../../assets/time.png')"
         alt="mão com moeda"
         :transportadora="frete.maisRapido.transportadora"
