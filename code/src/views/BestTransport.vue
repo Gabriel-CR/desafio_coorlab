@@ -63,6 +63,10 @@ export default {
     this.appName = "Melhor Frete";
   },
   methods: {
+    /*
+      Função callback recebida do componente Output
+      para os campos do formulário
+    */
     emitClear() {
       this.showOutput = false;
       this.clear = !this.clear;
@@ -79,17 +83,27 @@ export default {
         },
       };
     },
+    /*
+      Receber os valores do formulário
+      @params: 
+        city: cidade escolhida no formulário
+        weight: peso do produto
+    */
     receiveSubmit({ city, weight }) {
       this.city = city;
       this.weight = weight;
       this.handleSubmit();
     },
+    /*
+      Verificar se os campos foram preenchidos, 
+      além de verificar se o peso é maior que 0
+      caso cumpra os requisitos, chama o método calculate
+    */
     handleSubmit() {
-      // verificar se os campos estão preenchidos
       if (
         this.city === "Selecione o destino" ||
         this.weight === "" ||
-        this.weight == 0
+        this.weight <= 0
       ) {
         this.$alert("", "Insira os valores para realizar a análise", "warning");
         return;
@@ -100,8 +114,13 @@ export default {
 
       this.showOutput = true;
     },
+    /*
+      Calcular os fretes com menor valor e mais rápido
+    */
     calculate() {
       const { city, weight } = this;
+
+      // encontrar transportadoras disponíveis para a cidade
       const availableTransporters = this.data.filter(
         (transporter) => transporter.city === city
       );
@@ -112,11 +131,9 @@ export default {
       );
 
       // encontrar frete mais rápido para a cidade
-      const maisRapido = this.findFastestTransporter(
-        availableTransporters,
-        weight
-      );
+      const maisRapido = this.findFastestTransporter(availableTransporters);
 
+      // setar os valores no objeto frete com manor valor e mais rápido
       this.frete.menorValor = {
         transportadora: menorValor.name,
         tempo: menorValor.lead_time,
@@ -133,6 +150,13 @@ export default {
           .replace(".", ","),
       };
     },
+    /*
+      Encontrar o frete com menor valor para a cidade
+      de acordo com o peso
+      @params: 
+        transporters: array de transportadoras disponíveis para a cidade
+        weight: peso do produto
+    */
     findLowerCostTransporter(transporters, weight) {
       return transporters.reduce((prev, current) => {
         const prevCost =
@@ -152,6 +176,12 @@ export default {
         }
       });
     },
+    /*
+      Encontrar o frete mais rápido para a cidade
+      de acordo com o peso
+      @params: 
+        transporters: array de transportadoras disponíveis para a cidade
+    */
     findFastestTransporter(transporters) {
       return transporters.reduce((prev, current) => {
         if (
@@ -164,6 +194,12 @@ export default {
         }
       });
     },
+    /*
+      Calcular o valor total do frete
+      @params: 
+        transporter: transportadora escolhida nos métodos findLowerCostTransporter e findFastestTransporter
+        weight: peso do produto
+    */
     calculateTotalPrice(transporter, weight) {
       const cost =
         weight > 100
@@ -172,14 +208,28 @@ export default {
 
       return this.convertCashToFloat(cost) * weight;
     },
+    /*
+      Converter o valor do frete para float
+      @params: 
+        value: valor do frete com o formato R$ 0.00
+    */
     convertCashToFloat(value) {
       return parseFloat(value.replace("R$ ", "").replace(",", "."));
     },
+    /*
+      Converter o tempo do frete para inteiro
+      @params: 
+        value: tempo do frete com o formato 0h
+    */
     convertTimeToFloat(value) {
       return parseInt(value.replace("h", ""));
     },
   },
   watch: {
+    /*
+      Observar a mudança de valor da variável data
+      e atualizar o valor da variável citys com as cidades disponíveis
+    */
     data() {
       this.data.forEach((element) => {
         this.citys.push({ city: element.city, key: element.id });
